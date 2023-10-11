@@ -44,4 +44,11 @@ def change_a_todo(id_of_todo: int, todo: TodoItem):
     if id_of_todo >= len(all_of_my_todos):  # هذا يجب أن يكون نفس الشيء
         return {"error": "not found!! "}
     all_of_my_todos[id_of_todo] = todo  # الشيء الجديد يحل محل القديم
+    
     return todo  # أعتقد أنه يجب إرجاعه
+
+@add.delete("/todos/{todo_id}", respose_model=Todo)
+def delete_todo(todo_id: int):
+    if len(todos) - 1 < todo_id:
+        raise HTTPException(status_code=404, detail="Todo nit found!!")
+    return todos.pop(todo_id)
